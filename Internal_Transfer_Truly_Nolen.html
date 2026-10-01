@@ -164,8 +164,18 @@ function addItem(){
         }
         sr.className="search-results";sr.innerHTML="";
       }
+      var tY=0,tMoved=false;
+      div.addEventListener("touchstart",function(e){
+        tY=e.touches[0].clientY;
+        tMoved=false;
+      },{passive:true});
+      div.addEventListener("touchmove",function(e){
+        if(Math.abs(e.touches[0].clientY-tY)>10) tMoved=true;
+      },{passive:true});
+      div.addEventListener("touchend",function(e){
+        if(!tMoved) pick(e);
+      },{passive:false});
       div.addEventListener("mousedown",pick);
-      div.addEventListener("touchstart",pick,{passive:false});
       sr.appendChild(div);
     });
     sr.className="search-results show";
