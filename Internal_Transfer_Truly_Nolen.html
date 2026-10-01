@@ -75,6 +75,19 @@ if('serviceWorker' in navigator){
   if(window.caches){caches.keys().then(function(keys){keys.forEach(function(k){caches.delete(k);});});}
 }
 </script>
+<script>
+(function(){
+  var APP_VERSION="2026-10-01-02";
+  try{
+    fetch("version.txt?x="+Date.now(),{cache:"no-store"}).then(function(r){return r.text();}).then(function(v){
+      v=(v||"").trim();
+      if(v && v!==APP_VERSION){
+        location.href=location.pathname+"?v="+Date.now();
+      }
+    }).catch(function(){});
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
 <span id="co_s" style="display:none">Truly Nolen Georgia</span>
